@@ -1,3 +1,3 @@
-#Slack
+# Slack
 
 A slack clone.
