@@ -9,7 +9,10 @@ module.exports = (sequelize, DataTypes) => {
   Team.associate = function(models) {
     Team.belongsToMany(models.User, {
       through: 'member',
-      foreignKey: 'teamId'
+      foreignKey: {
+        name: 'teamId',
+        field: 'team_id'
+      }
     });
     Team.belongsTo(models.User, {
       foreignKey: 'owner'

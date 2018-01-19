@@ -15,7 +15,10 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     User.belongsToMany(models.Team, {
       through: 'member',
-      foreignKey: 'userId'
+      foreignKey: {
+        name: 'userId',
+        field: 'user_id'
+      }
     });
   };
   return User;

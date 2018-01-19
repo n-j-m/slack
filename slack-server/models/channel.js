@@ -5,7 +5,10 @@ module.exports = (sequelize, DataTypes) => {
   });
   Channel.associate = function(models) {
     Channel.belongsTo(models.Team, {
-      foreignKey: 'teamId'
+      foreignKey: {
+        name: 'teamId',
+        field: 'team_id'
+      }
     });
   };
   return Channel;
