@@ -5,6 +5,7 @@ import { makeExecutableSchema } from 'graphql-tools';
 
 import typeDefs from './schema';
 import resolvers from './resolvers';
+import db from './models';
 
 const PORT = process.env.PORT || 3000;
 
@@ -18,4 +19,9 @@ const graphqlEndpoint = '/graphql';
 app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
 app.use('/graphiql', graphiqlExpress({ endpointURL: graphqlEndpoint }));
 
-app.listen(PORT, () => console.log(`slack server listening on port ${PORT}`));
+const listen = () => app.listen(PORT, () => console.log(`slack server listening on port ${PORT}`));
+if (process.env.NODE_ENV !== 'production') {
+  db.sequelize.sync({ force: true }).then(listen);
+} else {
+  listen();
+}
